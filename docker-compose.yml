@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: spring-backend
+    expose:       # internal only
+      - "8080"
+    networks:
+      - app-net
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api   # React uses relative path
+    container_name: react-frontend
+    expose:
+      - "80"
+    networks:
+      - app-net
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable
+    container_name: app-proxy
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:          # <— **only public port**
+      - "8080:80"
+    networks:
+      - app-net
+    restart: unless-stopped
+
+networks:
+  app-net:
+    driver: bridge
