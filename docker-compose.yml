@@ -32,7 +32,7 @@ services:
     volumes:
       - ./nginx:/etc/nginx/conf.d:ro
     ports:          # <— **only public port**
-      - "8080:80"
+      - "4444:80"
     networks:
       - app-net
     restart: unless-stopped
