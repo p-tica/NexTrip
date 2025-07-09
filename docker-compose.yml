@@ -5,6 +5,8 @@ services:
     build:
       context: ./backend
     container_name: spring-backend
+    hostname:
+      - backend
     expose:       # internal only
       - "8080"
     networks:
@@ -17,6 +19,8 @@ services:
       args:
         VITE_API_URL: /api   # React uses relative path
     container_name: react-frontend
+    hostname:
+      - frontend
     expose:
       - "80"
     networks:
@@ -28,6 +32,8 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.prod
     container_name: app-proxy
+    hostname:
+      - nginx
     depends_on:
       - frontend
       - backend
