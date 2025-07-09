@@ -1,0 +1,14 @@
+.header {
+    position: fixed;
+    top: 20px;
+    right: 500px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+#Logo {
+    position: fixed;
+    top: 30px;
+    right: 150px;
+}
