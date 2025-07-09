@@ -31,8 +31,8 @@ services:
     depends_on:
       - frontend
       - backend
-    ports:          # <— **only public port**
-      - "4444:80"
+    expose:
+      - "80"
     networks:
       - app-net
     restart: unless-stopped
